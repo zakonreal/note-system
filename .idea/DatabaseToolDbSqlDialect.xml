@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseToolDbSqlDialect">
+    <option name="dialects">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/resources/db.migration/V1__create_tables.sql" value="PostgreSQL" />
+        <entry key="$PROJECT_DIR$/src/main/resources/db.migration/V2__insert_test_data.sql" value="PostgreSQL" />
+        <entry key="$PROJECT_DIR$/src/main/resources/db/V1__create_tables.sql" value="PostgreSQL" />
+        <entry key="$PROJECT_DIR$/src/main/resources/db/V2__insert_test_data.sql" value="PostgreSQL" />
+      </map>
+    </option>
+  </component>
+</project>
