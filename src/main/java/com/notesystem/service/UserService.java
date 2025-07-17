@@ -27,6 +27,15 @@ public class UserService {
         System.out.println("DEBUG: Hash for 'admin': " + passwordEncoder.encode("admin"));
     }
 
+    /**
+     * Регистрация нового пользователя.
+     * Хеширует пароль перед сохранением в репозиторий.
+     *
+     * @param username имя пользователя
+     * @param password пароль пользователя
+     * @return зарегистрированный пользователь
+     * @throws IllegalArgumentException если имя пользователя уже занято
+     */
     @Transactional
     public User registerUser(String username, String password) {
         if (userRepository.existsByUsername(username)) {
@@ -41,6 +50,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Переключает статус пользователя между активным и неактивным.
+     *
+     * @param userId идентификатор пользователя
+     * @throws IllegalArgumentException если пользователь не найден
+     */
     @Transactional
     public void toggleUserStatus(Long userId) {
         User user = userRepository.findById(userId)
@@ -49,6 +64,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * Изменяет роль пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @param role новая роль пользователя
+     * @throws IllegalArgumentException если пользователь не найден
+     */
     @Transactional
     public void changeUserRole(Long userId, User.Role role) {
         User user = userRepository.findById(userId)
@@ -57,6 +79,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * Получает список пользователей с возможностью фильтрации по имени и пагинации.
+     *
+     * @param query  строка для поиска по имени (опционально)
+     * @param pageable параметры пагинации
+     * @return страница пользователей
+     */
     @Transactional(readOnly = true)
     public Page<User> getAllUsers(String query, Pageable pageable) {
         if (query == null || query.isEmpty()) {
@@ -65,6 +94,12 @@ public class UserService {
         return userRepository.findByUsernameContainingIgnoreCase(query, pageable);
     }
 
+    /**
+     * Находит пользователя по его имени.
+     *
+     * @param username имя пользователя
+     * @return опциональный объект пользователя
+     */
     @Transactional(readOnly = true)
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);

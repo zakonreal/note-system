@@ -12,16 +12,31 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    /**
+     * Путь к директории для хранения загружаемых файлов.
+     * Значение задаётся через свойство приложения: 'notes.storage.upload-dir'.
+     */
     @Value("${notes.storage.upload-dir}")
     private String uploadDir;
 
+    /**
+     * Регистрация обработчиков ресурсов.
+     *
+     * @param registry Регистратор обработчиков ресурсов, предоставляемый Spring MVC.
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Доступ к загруженным изображениям
+        /**
+         * Обработчик для доступа к загруженным изображениям.
+         * Все запросы по пути '/images/**' будут отображаться на локальную директорию, указанную в uploadDir.
+         */
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:" + uploadDir + "/");
 
-        // Документация Swagger
+        /**
+         * Обработчик для отображения интерфейса Swagger UI.
+         * Все запросы по пути '/swagger-ui/**' будут обслуживаться из ресурсов библиотеки springdoc-openapi-ui.
+         */
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springdoc-openapi-ui/")
                 .resourceChain(false);

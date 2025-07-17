@@ -18,12 +18,28 @@ import java.io.IOException;
 @RequestMapping("/export")
 public class ExportController {
 
+    /**
+     * Сервис для работы с экспортом данных.
+     */
     private final ExportService exportService;
 
+    /**
+     * Конструктор класса.
+     *
+     * @param exportService сервис для экспорта данных
+     */
     public ExportController(ExportService exportService) {
         this.exportService = exportService;
     }
 
+    /**
+     * Метод для экспорта заметок пользователя в формате Excel.
+     * Устанавливает заголовки ответа и отправляет файл на скачивание.
+     *
+     * @param user           текущий аутентифицированный пользователь
+     * @param response       объект ответа HTTP-запроса
+     * @throws IOException   если возникает ошибка ввода/вывода при работе с потоком
+     */
     @GetMapping("/excel")
     public void exportToExcel(@AuthenticationPrincipal User user,
                               HttpServletResponse response) throws IOException {

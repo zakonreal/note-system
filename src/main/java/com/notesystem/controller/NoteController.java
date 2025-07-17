@@ -29,6 +29,17 @@ public class NoteController {
         this.noteService = noteService;
     }
 
+    /**
+     * Отображает список заметок текущего пользователя с поддержкой пагинации, сортировки и поиска.
+     *
+     * @param user      Пользователь, для которого загружаются заметки.
+     * @param page      Номер страницы (начиная с 0).
+     * @param sort      Поле для сортировки (например, createdDate).
+     * @param direction Направление сортировки: "asc" или "desc".
+     * @param query     Строка запроса для фильтрации заметок.
+     * @param model     Модель, передаваемая в представление.
+     * @return Имя шаблона (views/notes.html).
+     */
     @GetMapping
     public String listNotes(
             @AuthenticationPrincipal User user,
@@ -59,12 +70,27 @@ public class NoteController {
         return "notes";
     }
 
+    /**
+     * Отображает форму добавления новой заметки.
+     *
+     * @param model Модель, передаваемая в представление.
+     * @return Имя шаблона (views/add_note.html).
+     */
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("note", new Note());
         return "add_note";
     }
 
+    /**
+     * Создаёт новую заметку для текущего пользователя.
+     *
+     * @param user     Текущий аутентифицированный пользователь.
+     * @param note     Объект заметки с данными из формы.
+     * @param image    Прикреплённый файл-изображение (опционально).
+     * @param reminder Время напоминания (опционально).
+     * @return Перенаправление на страницу списка заметок.
+     */
     @PostMapping("/add")
     public String addNote(
             @AuthenticationPrincipal User user,
@@ -76,6 +102,14 @@ public class NoteController {
         return "redirect:/notes";
     }
 
+    /**
+     * Отображает конкретную заметку по её идентификатору.
+     *
+     * @param id   Идентификатор заметки.
+     * @param user Текущий пользователь.
+     * @param model Модель, передаваемая в представление.
+     * @return Имя шаблона (views/note.html).
+     */
     @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id,
                            @AuthenticationPrincipal User user,
@@ -85,6 +119,14 @@ public class NoteController {
         return "note";
     }
 
+    /**
+     * Отображает форму редактирования заметки.
+     *
+     * @param id   Идентификатор заметки.
+     * @param user Текущий пользователь.
+     * @param model Модель, передаваемая в представление.
+     * @return Имя шаблона (views/edit_note.html).
+     */
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id,
                                @AuthenticationPrincipal User user,
@@ -94,6 +136,15 @@ public class NoteController {
         return "edit_note";
     }
 
+    /**
+     * Обновляет существующую заметку.
+     *
+     * @param id      Идентификатор заметки.
+     * @param note    Объект заметки с обновлёнными данными.
+     * @param image   Прикреплённый файл-изображение (опционально).
+     * @param reminder Время напоминания (опционально).
+     * @return Перенаправление на страницу списка заметок.
+     */
     @PostMapping("/edit/{id}")
     public String updateNote(@PathVariable Long id,
                              @ModelAttribute Note note,
@@ -104,12 +155,24 @@ public class NoteController {
         return "redirect:/notes";
     }
 
+    /**
+     * Удаляет заметку по её идентификатору.
+     *
+     * @param id Идентификатор заметки.
+     * @return Перенаправление на страницу списка заметок.
+     */
     @PostMapping("/delete/{id}")
     public String deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);
         return "redirect:/notes";
     }
 
+    /**
+     * Переключает статус выполнения заметки (выполнена / не выполнена).
+     *
+     * @param id Идентификатор заметки.
+     * @return Перенаправление на страницу списка заметок.
+     */
     @PostMapping("/toggle/{id}")
     public String toggleCompletion(@PathVariable Long id) {
         noteService.toggleNoteCompletion(id);

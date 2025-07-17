@@ -22,10 +22,22 @@ public class ExportService {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Конструктор класса, инициализирующий репозиторий заметок.
+     *
+     * @param noteRepository Репозиторий для работы с заметками
+     */
     public ExportService(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
 
+    /**
+     * Экспортирует список заметок пользователя в Excel-файл.
+     *
+     * @param user           Пользователь, чьи заметки необходимо экспортировать
+     * @param outputStream   Поток вывода, в который будет записан Excel-файл
+     * @throws IOException   В случае ошибки ввода/вывода
+     */
     public void exportNotesToExcel(User user, OutputStream outputStream) throws IOException {
         List<Note> notes = noteRepository.findByUser(user);
 

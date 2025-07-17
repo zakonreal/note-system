@@ -23,5 +23,12 @@ import org.springframework.context.annotation.Configuration;
         scheme = "bearer",
         bearerFormat = "JWT"
 )
+/**
+ * Класс SwaggerConfig настраивает документацию OpenAPI для приложения Spring.
+ * <p>
+ * Использует аннотации из библиотеки Swagger, чтобы задать метаданные API:
+ * - заголовок, версию и описание API
+ * - схему безопасности Bearer (JWT)
+ */
 public class SwaggerConfig {
 }

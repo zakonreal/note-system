@@ -11,6 +11,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 public class NotesystemApplication {
+    /**
+     * Точка входа в приложение.
+     * Запускает Spring Boot-приложение с передачей аргументов командной строки.
+     *
+     * @param args аргументы командной строки, переданные при запуске приложения
+     */
     public static void main(String[] args) {
         SpringApplication.run(NotesystemApplication.class, args);
     }

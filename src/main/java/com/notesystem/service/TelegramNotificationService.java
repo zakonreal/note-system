@@ -16,6 +16,12 @@ public class TelegramNotificationService {
     private final String botToken;
     private final String chatId;
 
+    /**
+     * Конструктор класса, инициализирует необходимые параметры.
+     *
+     * @param botToken токен бота, полученный из конфигурации
+     * @param chatId   идентификатор чата, куда будут отправляться сообщения
+     */
     public TelegramNotificationService(
             @Value("${notes.telegram.bot-token}") String botToken,
             @Value("${notes.telegram.chat-id}") String chatId
@@ -25,6 +31,11 @@ public class TelegramNotificationService {
         this.chatId = chatId;
     }
 
+    /**
+     * Метод, который прослушивает указанную Kafka-тему и отправляет сообщения в Telegram.
+     *
+     * @param message текст сообщения, полученного из Kafka
+     */
     @KafkaListener(
             topics = "${notes.telegram.topic}",
             groupId = "telegram-consumer-group" // Явное указание groupId
