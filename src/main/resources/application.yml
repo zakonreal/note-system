@@ -51,8 +51,8 @@ spring:
 notes:
   telegram:
     topic: telegram-reminders
-    bot-token: "7274784655:AAEOj1qdCAIoseb7nw0TBU87Ji5qh0ismM0"
-    chat-id: "-1001519828635"
+    bot-token: ""
+    chat-id: ""
   storage:
     upload-dir: ./uploads
 
